@@ -51,7 +51,7 @@ object ConnectionManager {
     }
 
     fun unregisterListener(listener: ConnectionEventListener) {
-        // Removing elements while in a loop results in a java.util.ConcurrentModificationException
+        
         var toRemove: WeakReference<ConnectionEventListener>? = null
         listeners.forEach {
             if (it.get() == listener) {
@@ -169,7 +169,6 @@ object ConnectionManager {
         }
     }
 
-    // - Beginning of PRIVATE functions
 
     @Synchronized
     private fun enqueueOperation(operation: BleOperationType) {
@@ -188,10 +187,6 @@ object ConnectionManager {
         }
     }
 
-    /**
-     * Perform a given [BleOperationType]. All permission checks are performed before an operation
-     * can be enqueued by [enqueueOperation].
-     */
     @SuppressLint("MissingPermission")
     @Synchronized
     private fun doNextOperation() {
@@ -223,8 +218,6 @@ object ConnectionManager {
                 return
             }
 
-        // TODO: Make sure each operation ultimately leads to signalEndOfOperation()
-        // TODO: Refactor this into an BleOperationType abstract or extension function
         when (operation) {
             is Disconnect -> with(operation) {
                 Log.e(tag,"Disconnecting from ${device.address}")
