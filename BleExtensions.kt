@@ -1,4 +1,4 @@
-package com.engieeps.powerup
+package it.chiodimassimiliano.androidble
 
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
